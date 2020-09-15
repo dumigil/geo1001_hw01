@@ -7,5 +7,10 @@ import csv
 import xlrd
 from read_data import read_data
 
-def mean_data_A():
-    print('Mean Wind Speed = ' + str()))
+
+A,B,C,D,E = read_data()
+print(A.mean())
+print(B.mean())
+print(C.mean())
+print(D.mean())
+print(E.mean())

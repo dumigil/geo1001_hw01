@@ -1,7 +1,7 @@
 ,Device Name,HEAT - 2514400,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19
 0,Device Model,5400CL,,,,,,,,,,,,,,,,,,
 1,Serial Number,2514400,,,,,,,,,,,,,,,,,,
-2,FORMATTED DATE-TIME,Direction ‚ True,Wind Speed,Crosswind Speed,Headwind Speed,Temperature,Globe Temperature,Wind Chill,Relative Humidity,Heat Stress Index,Dew Point,Psychro Wet Bulb Temperature,Station Pressure,Barometric Pressure,Altitude,Density Altitude,NA Wet Bulb Temperature,WBGT,TWL,Direction ‚ Mag
+2,FORMATTED DATE-TIME,Direction_True,Wind_Speed,Crosswind_Speed,Headwind_Speed,Temperature,Globe_Temperature,Wind_Chill,Relative_Humidity,Heat_Stress_Index,Dew_Point,Psychro_Wet_Bulb_Temperature,Station_Pressure,Barometric_Pressure,Altitude,Density_Altitude,NA_Wet_Bulb_Temperature,WBGT,TWL,Direction_Mag
 3,YYYY-MM-DD HH:MM:SS,¬∞,m/s,m/s,m/s,¬∞C,¬∞C,¬∞C,%,¬∞C,¬∞C,¬∞C,mb,mb,m,m,¬∞C,¬∞C,w/m^2 ,¬∞
 4,2020-06-10 00:00:00,334,1.2,0.5,1.1,10.1,8.3,9.5,68.6,9.5,4.6,7.4,1021.3,1021.2,-68,-229,7.4,7.8,320.0,333
 5,2020-06-10 00:20:00,334,0.6,0.3,0.6,9.9,8.1,9.8,70.0,9.4,4.6,7.3,1021.2,1021.2,-68,-236,7.3,7.7,320.0,334
