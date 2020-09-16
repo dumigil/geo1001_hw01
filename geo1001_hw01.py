@@ -14,6 +14,8 @@ import seaborn as sns
 
 A,B,C,D,E = read_data()
 
+
+
 #######################################
 #LESSON A1
 #######################################
@@ -218,7 +220,7 @@ def plot_PMF():
     dfE = pmf(temp_E)
     cE = dfE.sort_index()
 
-    fig = plt.figure(figsize=(10,6))
+    fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax2 = fig.add_subplot(152)
     ax3 = fig.add_subplot(153)
@@ -248,12 +250,68 @@ def plot_PDF():
     temp_C = C.Temperature
     temp_D = D.Temperature
     temp_E = E.Temperature 
-       
 
-    
-    
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(151)
+    ax1.title.set_text('PDF of Sensor A')
+    a1=ax1.hist(x=temp_A.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(temp_A.astype(float), color='royalblue',ax=ax1)
+    ax2 = fig.add_subplot(152)
+    ax2.title.set_text('PDF of Sensor B')
+    a2=ax2.hist(x=temp_B.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(temp_B.astype(float), color='royalblue',ax=ax2)
+    ax3 = fig.add_subplot(153)
+    ax3.title.set_text('PDF of Sensor C')
+    a3=ax3.hist(x=temp_C.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(temp_C.astype(float), color='royalblue',ax=ax3)
+    ax4 = fig.add_subplot(154)
+    ax4.title.set_text('PDF of Sensor D')
+    a4=ax4.hist(x=temp_D.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(temp_D.astype(float), color='royalblue',ax=ax4)
+    ax5 = fig.add_subplot(155)
+    ax5.title.set_text('PDF of Sensor E')
+    a5=ax5.hist(x=temp_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(temp_E.astype(float), color='royalblue',ax=ax5)
+    plt.tight_layout()
+    plt.show()
+
+def plot_CDF():
+    temp_A = A.Temperature
+    temp_B = B.Temperature
+    temp_C = C.Temperature
+    temp_D = D.Temperature
+    temp_E = E.Temperature  
+
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(151)
+    ax1.title.set_text('CDF of Sensor A')
+    a1=ax1.hist(x=temp_A.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax1.plot(a1[1][1:]-(a1[1][1:]-a1[1][:-1])/2,a1[0], color='k')
+    ax2 = fig.add_subplot(152)
+    ax2.title.set_text('CDF of Sensor B')
+    a2=ax2.hist(x=temp_B.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax2.plot(a2[1][1:]-(a2[1][1:]-a2[1][:-1])/2,a2[0], color='k')
+    ax3 = fig.add_subplot(153)
+    ax3.title.set_text('CDF of Sensor C')
+    a3=ax3.hist(x=temp_C.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax3.plot(a3[1][1:]-(a3[1][1:]-a3[1][:-1])/2,a3[0], color='k')
+    ax4 = fig.add_subplot(154)
+    ax4.title.set_text('CDF of Sensor D')
+    a4=ax4.hist(x=temp_D.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax4.plot(a4[1][1:]-(a4[1][1:]-a4[1][:-1])/2,a4[0], color='k')
+    ax5 = fig.add_subplot(155)
+    ax5.title.set_text('CDF of Sensor E')
+    a5=ax5.hist(x=temp_E.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax5.plot(a5[1][1:]-(a5[1][1:]-a5[1][:-1])/2,a5[0], color='k')
+    plt.tight_layout()
+    plt.show()
 
 
-plot_PMF()
 
+#plot_PMF()
+#plot_PDF()
+#plot_CDF()
 
+#######################################
+#LESSON A3
+#######################################
