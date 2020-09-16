@@ -7,11 +7,16 @@ import csv
 import xlrd
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy import stats
 from read_data import read_data
+import seaborn as sns   
 
 
 A,B,C,D,E = read_data()
 
+#######################################
+#LESSON A1
+#######################################
 def plot_temps_hist_5():
     temp_A = A.Temperature
     temp_B = B.Temperature
@@ -179,12 +184,76 @@ def boxplot_temperature():
     ax5.set_xlabel('Sensor E', fontsize=14)
     plt.show()
 
-boxplot_windspeed()
-boxplot_winddirection()
-boxplot_temperature()
-
-
-
+#boxplot_windspeed()
+#boxplot_winddirection()
+#boxplot_temperature()
 #frequency_polygon()
 #plot_temps_hist_5()
 #plot_temps_hist_50()
+
+#######################################
+#LESSON A2
+#######################################
+
+def plot_PMF():
+    temp_A = A.Temperature
+    temp_B = B.Temperature
+    temp_C = C.Temperature
+    temp_D = D.Temperature
+    temp_E = E.Temperature    
+
+    def pmf(sample):
+        c = sample.value_counts()
+        p = c/len(sample)
+        return p
+    
+    dfA = pmf(temp_A)
+    cA = dfA.sort_index()
+    dfB = pmf(temp_B)
+    cB = dfB.sort_index()
+    dfC = pmf(temp_C)
+    cC = dfC.sort_index()
+    dfD = pmf(temp_D)
+    cD = dfD.sort_index()
+    dfE = pmf(temp_E)
+    cE = dfE.sort_index()
+
+    fig = plt.figure(figsize=(10,6))
+    ax1 = fig.add_subplot(151)
+    ax2 = fig.add_subplot(152)
+    ax3 = fig.add_subplot(153)
+    ax4 = fig.add_subplot(154)
+    ax5 = fig.add_subplot(155)
+    ax1.bar(dfA.index,dfA.values)
+    ax1.tick_params(labelsize=8)
+    ax1.title.set_text('PMF of Sensor A')
+    ax2.bar(dfB.index,dfB.values)
+    ax2.tick_params(labelsize=8)
+    ax2.title.set_text('PMF of Sensor B')
+    ax3.bar(dfC.index,dfC.values)
+    ax3.tick_params(labelsize=8)
+    ax3.title.set_text('PMF of Sensor C')
+    ax4.bar(dfD.index,dfD.values)
+    ax4.tick_params(labelsize=8)
+    ax4.title.set_text('PMF of Sensor D')
+    ax5.bar(dfE.index,dfE.values)
+    ax5.tick_params(labelsize=8)
+    ax5.title.set_text('PMF of Sensor E')
+    plt.tight_layout()
+    plt.show()
+
+def plot_PDF():
+    temp_A = A.Temperature
+    temp_B = B.Temperature
+    temp_C = C.Temperature
+    temp_D = D.Temperature
+    temp_E = E.Temperature 
+       
+
+    
+    
+
+
+plot_PMF()
+
+
