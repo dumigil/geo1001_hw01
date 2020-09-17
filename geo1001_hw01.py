@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
 from read_data import read_data
-import seaborn as sns   
+import seaborn as sns 
 
 
 A,B,C,D,E = read_data()
@@ -315,3 +315,49 @@ def plot_CDF():
 #######################################
 #LESSON A3
 #######################################
+def correlation_function(a, b):
+    pcoef = stats.pearsonr(a,b)
+    #prcoef = stats.spearmanr(a,b)
+
+def correlations_unused():
+    keys = ['A','B','C','D','E']
+    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
+    WBGT = pd.concat([A.WBGT,B.WBGT,C.WBGT,D.WBGT,E.WBGT],axis=1,keys=keys)
+    Crosswind_Speed = pd.concat([A.Crosswind_Speed,B.Crosswind_Speed,C.Crosswind_Speed,D.Crosswind_Speed,E.Crosswind_Speed],axis=1,keys=keys)
+    #print(Temperature)
+    #print(WBGT)
+    #print(Crosswind_Speed)
+
+    total_df = ([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature])
+    print(type(total_df))
+    correlations = []
+
+    for i in range(len(total_df)):
+	    counter = i
+	    while counter < len(total_df)-1:
+		    correlations.append(correlation_function(total_df[i], total_df[i+1]))
+		    counter += 1
+
+
+    print(correlations)
+
+
+
+def correlations():
+    keys = ['A','B','C','D','E']
+    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
+    pearson_dict = {}
+    while len(keys) > 1:
+        sensor1 = keys[0]
+        for sensor2 in keys:
+            if sensor1 != sensor2:
+                pearson = stats.pearsonr(Temperature[sensor1],Temperature[sensor2])
+                key = str(sensor1) + ' x ' + str(sensor2)
+                pearson_dict[key] = pearson
+        keys.remove(sensor1)
+    print(pearson_dict)
+                
+
+
+correlations()
+
