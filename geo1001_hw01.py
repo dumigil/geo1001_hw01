@@ -57,7 +57,7 @@ def frequency_polygon():
     temp_C = C.Temperature
     temp_D = D.Temperature
     temp_E = E.Temperature
-    fig = plt.figure(figsize=(16,8))
+    fig = plt.figure(figsize=(17,6))
     fig.suptitle('Frequency Polygons for 5 sensors')
     #Frequency polygon Sensor A
     [freq_A, bins]=np.histogram(temp_A, bins = 10) 
@@ -88,7 +88,7 @@ def boxplot_windspeed():
     WS_D = D.Wind_Speed
     WS_E = E.Wind_Speed
 
-    fig = plt.figure(figsize=(28,8))
+    fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax2 = fig.add_subplot(152)
     ax3 = fig.add_subplot(153)
@@ -123,7 +123,7 @@ def boxplot_winddirection():
     WD_D = D.Direction_True
     WD_E = E.Direction_True
 
-    fig = plt.figure(figsize=(28,8))
+    fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax2 = fig.add_subplot(152)
     ax3 = fig.add_subplot(153)
@@ -158,7 +158,7 @@ def boxplot_temperature():
     temp_D = D.Temperature
     temp_E = E.Temperature
 
-    fig = plt.figure(figsize=(28,8))
+    fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax2 = fig.add_subplot(152)
     ax3 = fig.add_subplot(153)
@@ -186,12 +186,12 @@ def boxplot_temperature():
     ax5.set_xlabel('Sensor E', fontsize=14)
     plt.show()
 
-#boxplot_windspeed()
-#boxplot_winddirection()
-#boxplot_temperature()
-#frequency_polygon()
-#plot_temps_hist_5()
-#plot_temps_hist_50()
+boxplot_windspeed()
+boxplot_winddirection()
+boxplot_temperature()
+frequency_polygon()
+plot_temps_hist_5()
+plot_temps_hist_50()
 
 #######################################
 #LESSON A2
@@ -308,56 +308,119 @@ def plot_CDF():
 
 
 
-#plot_PMF()
-#plot_PDF()
-#plot_CDF()
+plot_PMF()
+plot_PDF()
+plot_CDF()
 
 #######################################
 #LESSON A3
 #######################################
-def correlation_function(a, b):
-    pcoef = stats.pearsonr(a,b)
-    #prcoef = stats.spearmanr(a,b)
 
-def correlations_unused():
+def correlations_T():
     keys = ['A','B','C','D','E']
-    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
-    WBGT = pd.concat([A.WBGT,B.WBGT,C.WBGT,D.WBGT,E.WBGT],axis=1,keys=keys)
-    Crosswind_Speed = pd.concat([A.Crosswind_Speed,B.Crosswind_Speed,C.Crosswind_Speed,D.Crosswind_Speed,E.Crosswind_Speed],axis=1,keys=keys)
-    #print(Temperature)
-    #print(WBGT)
-    #print(Crosswind_Speed)
-
-    total_df = ([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature])
-    print(type(total_df))
-    correlations = []
-
-    for i in range(len(total_df)):
-	    counter = i
-	    while counter < len(total_df)-1:
-		    correlations.append(correlation_function(total_df[i], total_df[i+1]))
-		    counter += 1
-
-
-    print(correlations)
-
-
-
-def correlations():
-    keys = ['A','B','C','D','E']
-    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
-    pearson_dict = {}
+    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys).dropna()
+    pearson_list = []
+    spearman_list = []
+    
     while len(keys) > 1:
         sensor1 = keys[0]
         for sensor2 in keys:
             if sensor1 != sensor2:
                 pearson = stats.pearsonr(Temperature[sensor1],Temperature[sensor2])
                 key = str(sensor1) + ' x ' + str(sensor2)
-                pearson_dict[key] = pearson
+                pearson_list.append(pearson)
+                #pearson_list.append(key)
+                spearman = stats.spearmanr(Temperature[sensor1],Temperature[sensor2])
+                key = str(sensor1) + ' x ' + str(sensor2)
+                spearman_list.append(pearson)
+
         keys.remove(sensor1)
-    print(pearson_dict)
+        
+    return pearson_list, spearman_list
+
+def correlations_WBGT():
+    keys = ['A','B','C','D','E']
+    WBGT = pd.concat([A.WBGT,B.WBGT,C.WBGT,D.WBGT,E.WBGT],axis=1,keys=keys).dropna()
+    pearson_list = []
+    spearman_list = []
+    
+    while len(keys) > 1:
+        sensor1 = keys[0]
+        for sensor2 in keys:
+            if sensor1 != sensor2:
+                pearson = stats.pearsonr(WBGT[sensor1],WBGT[sensor2])
+                key = str(sensor1) + ' x ' + str(sensor2)
+                pearson_list.append(pearson)
+                #pearson_list.append(key)
+                spearman = stats.spearmanr(WBGT[sensor1],WBGT[sensor2])
+                key = str(sensor1) + ' x ' + str(sensor2)
+                spearman_list.append(pearson)
+
+        keys.remove(sensor1)
+    return pearson_list, spearman_list
+
+def correlations_CWS():
+    keys = ['A','B','C','D','E']
+    Crosswind_Speed = pd.concat([A.Crosswind_Speed,B.Crosswind_Speed,C.Crosswind_Speed,D.Crosswind_Speed,E.Crosswind_Speed],axis=1,keys=keys).dropna()
+    pearson_list = []
+    spearman_list = []
+    key_list = []
+    
+    while len(keys) > 1:
+        sensor1 = keys[0]
+        for sensor2 in keys:
+            if sensor1 != sensor2:
+                pearson = stats.pearsonr(Crosswind_Speed[sensor1],Crosswind_Speed[sensor2])
+                key = str(sensor1) + ' - ' + str(sensor2)
+                pearson_list.append(pearson)
+                #pearson_list.append(key)
+                spearman = stats.spearmanr(Crosswind_Speed[sensor1],Crosswind_Speed[sensor2])
+                key = str(sensor1) + ' - ' + str(sensor2)
+                spearman_list.append(pearson)
+                key_list.append(key)
+
+        keys.remove(sensor1)
+    return pearson_list, spearman_list, key_list
+
                 
+def plot_correlations():
+    temp_pearson, temp_spearman = correlations_T()
+    temp_pearson = np.array(temp_pearson)
+    temp_pearson = np.delete(temp_pearson,1,1)
+    temp_spearman = np.array(temp_spearman)
+    temp_spearman = np.delete(temp_spearman,1,1)
+    wbgt_pearson, wbgt_spearman = correlations_WBGT()
+    wbgt_pearson = np.array(wbgt_pearson)
+    wbgt_pearson = np.delete(wbgt_pearson,1,1)
+    wbgt_spearman = np.array(wbgt_spearman)
+    wbgt_spearman = np.delete(wbgt_spearman,1,1)
+    cws_pearson, cws_spearman, key_list = correlations_CWS()
+    cws_pearson = np.array(cws_pearson)
+    cws_pearson = np.delete(cws_pearson,1,1)
+    cws_spearman = np.array(cws_spearman)
+    cws_spearman = np.delete(cws_spearman,1,1)
+    
+
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(121)
+    ax1.scatter(key_list,temp_pearson, c='paleturquoise',label='Temperature')
+    ax1.scatter(key_list,wbgt_pearson, c='tomato',label='Wet Bulb Globe')
+    ax1.scatter(key_list,cws_pearson, c='teal',label='Crosswind Speed')
+    ax1.title.set_text('Pearson Correlation')
+    ax1.set_ylabel('Correlation Coefficient',fontsize=14)
+    plt.legend(loc='center right')
+    ax2 = fig.add_subplot(122)
+    ax2.scatter(key_list,temp_spearman, c='paleturquoise',label='Temperature')
+    ax2.scatter(key_list,wbgt_spearman, c='tomato',label='Wet Bulb Globe')
+    ax2.scatter(key_list,cws_spearman, c='teal',label='Crosswind Speed')
+    ax2.title.set_text('Spearman Correlation')
+    ax2.set_ylabel('Correlation Coefficient',fontsize=14)
+    plt.legend(loc='center right')
+
+    plt.tight_layout()
+    plt.show()
 
 
-correlations()
+plot_correlations()
+
 

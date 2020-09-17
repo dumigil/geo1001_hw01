@@ -20,10 +20,10 @@ def read_data():
     #print(a)
 
     Adf = A_data.fillna(0)
-    Bdf = A_data.fillna(0)
-    Cdf = A_data.fillna(0)
-    Ddf = A_data.fillna(0)
-    Edf = A_data.fillna(0)
+    Bdf = B_data.fillna(0)
+    Cdf = C_data.fillna(0)
+    Ddf = D_data.fillna(0)
+    Edf = E_data.fillna(0)
     #print(Adf)
 
 
