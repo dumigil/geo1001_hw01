@@ -348,9 +348,74 @@ def plot_CDF_WS():
     plt.tight_layout()
     plt.show()
 
+def plot_PDF_WS():
+    WS_A = A.Wind_Speed
+    WS_B = B.Wind_Speed
+    WS_C = C.Wind_Speed
+    WS_D = D.Wind_Speed
+    WS_E = E.Wind_Speed 
+
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(151)
+    ax1.title.set_text('PDF of Sensor A')
+    a1=ax1.hist(x=WS_A.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(WS_A.astype(float), color='royalblue',ax=ax1)
+    ax2 = fig.add_subplot(152)
+    ax2.title.set_text('PDF of Sensor B')
+    a2=ax2.hist(x=WS_B.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(WS_B.astype(float), color='royalblue',ax=ax2)
+    ax3 = fig.add_subplot(153)
+    ax3.title.set_text('PDF of Sensor C')
+    a3=ax3.hist(x=WS_C.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(WS_C.astype(float), color='royalblue',ax=ax3)
+    ax4 = fig.add_subplot(154)
+    ax4.title.set_text('PDF of Sensor D')
+    a4=ax4.hist(x=WS_D.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(WS_D.astype(float), color='royalblue',ax=ax4)
+    ax5 = fig.add_subplot(155)
+    ax5.title.set_text('PDF of Sensor E')
+    a5=ax5.hist(x=WS_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
+    sns.distplot(WS_E.astype(float), color='royalblue',ax=ax5)
+    plt.tight_layout()
+    plt.show()
+
+def plot_KDE_WS():
+    WS_A = A.Wind_Speed
+    WS_B = B.Wind_Speed
+    WS_C = C.Wind_Speed
+    WS_D = D.Wind_Speed
+    WS_E = E.Wind_Speed 
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(151) 
+    ax1 = WS_A.plot.kde()
+    ax1.title.set_text('KDE of Sensor A')
+    ax1.set_xlabel('Wind Speed [m/s]')
+    ax2 = fig.add_subplot(152) 
+    ax2 = WS_B.plot.kde()
+    ax2.title.set_text('KDE of Sensor B')
+    ax2.set_xlabel('Wind Speed [m/s]')
+    ax3 = fig.add_subplot(153) 
+    ax3 = WS_C.plot.kde()
+    ax3.title.set_text('KDE of Sensor C')
+    ax3.set_xlabel('Wind Speed [m/s]')
+    ax4 = fig.add_subplot(154) 
+    ax4 = WS_D.plot.kde()
+    ax4.title.set_text('KDE of Sensor D')
+    ax4.set_xlabel('Wind Speed [m/s]')
+    ax5 = fig.add_subplot(155) 
+    ax5 = WS_E.plot.kde()
+    ax5.title.set_text('KDE of Sensor E')
+    ax5.set_xlabel('Wind Speed [m/s]')
+    plt.tight_layout()
+    plt.show()
+
+
+
 #plot_PMF_T()
 #plot_PDF_T()
 #plot_CDF_T()
+plot_PDF_WS()
+plot_KDE_WS()
 
 #######################################
 #LESSON A3
@@ -480,7 +545,7 @@ def confidence_interval_T():
     lower, upper = stats.t.interval(0.95, sample_length-1,loc=sample_mean, scale=sample_std)
     lower_values.append(lower)
     upper_values.append(upper)
-    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys)
+    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys).to_csv("confidence_interval_temperature.csv")
     print(((confidence_table)))
 
 def confidence_interval_WS():
@@ -495,12 +560,66 @@ def confidence_interval_WS():
     lower, upper = stats.t.interval(0.95, sample_length-1,loc=sample_mean, scale=sample_std)
     lower_values.append(lower)
     upper_values.append(upper)
-    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys)
+    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys).to_csv("confidence_interval_winspeed.csv")
     print(((confidence_table)))
 
+def t_test_ED():
+    temp_D = D.Temperature
+    temp_E = E.Temperature
+    WS_D = D.Wind_Speed
+    WS_E = E.Wind_Speed
+    print("Comparing samples from sensors E and D")
+    t_temp, p_temp = stats.ttest_ind(temp_D,temp_E)
+    print("Temperature t-value: " + str(t_temp))
+    print("Temperature p-value: " + str(p_temp))
+    t_ws, p_ws = stats.ttest_ind(WS_D,WS_E)
+    print("Wind Speed t-value: " + str(t_ws))
+    print("Wind Speed p-value: " + str(p_ws))
+
+def t_test_DC():
+    temp_D = D.Temperature
+    temp_C = C.Temperature
+    WS_D = D.Wind_Speed
+    WS_C = C.Wind_Speed
+    print("Comparing samples from sensors D and C")
+    t_temp, p_temp = stats.ttest_ind(temp_D,temp_C)
+    print("Temperature t-value: " + str(t_temp))
+    print("Temperature p-value: " + str(p_temp))
+    t_ws, p_ws = stats.ttest_ind(WS_D,WS_C)
+    print("Wind Speed t-value: " + str(t_ws))
+    print("Wind Speed p-value: " + str(p_ws))
+
+def t_test_CB():
+    temp_C = C.Temperature
+    temp_B = B.Temperature
+    WS_C = C.Wind_Speed
+    WS_B = B.Wind_Speed
+    print("Comparing samples from sensors C and B")
+    t_temp, p_temp = stats.ttest_ind(temp_C,temp_B)
+    print("Temperature t-value: " + str(t_temp))
+    print("Temperature p-value: " + str(p_temp))
+    t_ws, p_ws = stats.ttest_ind(WS_C,WS_B)
+    print("Wind Speed t-value: " + str(t_ws))
+    print("Wind Speed p-value: " + str(p_ws))
+
+def t_test_BA():
+    temp_B = B.Temperature
+    temp_A = A.Temperature
+    WS_B = B.Wind_Speed
+    WS_A = A.Wind_Speed
+    print("Comparing samples from sensors B and A")
+    t_temp, p_temp = stats.ttest_ind(temp_B,temp_A)
+    print("Temperature t-value: " + str(t_temp))
+    print("Temperature p-value: " + str(p_temp))
+    t_ws, p_ws = stats.ttest_ind(WS_B,WS_A)
+    print("Wind Speed t-value: " + str(t_ws))
+    print("Wind Speed p-value: " + str(p_ws))
 
 
 
-
-confidence_interval_T()
-confidence_interval_WS()
+#confidence_interval_T()
+#confidence_interval_WS()
+#t_test_ED()
+#t_test_DC()
+#t_test_CB()
+#t_test_BA()
