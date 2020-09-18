@@ -10,6 +10,7 @@ import numpy as np
 from scipy import stats
 from read_data import read_data
 import seaborn as sns 
+import math
 
 
 A,B,C,D,E = read_data()
@@ -186,18 +187,18 @@ def boxplot_temperature():
     ax5.set_xlabel('Sensor E', fontsize=14)
     plt.show()
 
-boxplot_windspeed()
-boxplot_winddirection()
-boxplot_temperature()
-frequency_polygon()
-plot_temps_hist_5()
-plot_temps_hist_50()
+#boxplot_windspeed()
+#boxplot_winddirection()
+#boxplot_temperature()
+#frequency_polygon()
+#plot_temps_hist_5()
+#plot_temps_hist_50()
 
 #######################################
 #LESSON A2
 #######################################
 
-def plot_PMF():
+def plot_PMF_T():
     temp_A = A.Temperature
     temp_B = B.Temperature
     temp_C = C.Temperature
@@ -244,7 +245,7 @@ def plot_PMF():
     plt.tight_layout()
     plt.show()
 
-def plot_PDF():
+def plot_PDF_T():
     temp_A = A.Temperature
     temp_B = B.Temperature
     temp_C = C.Temperature
@@ -275,42 +276,81 @@ def plot_PDF():
     plt.tight_layout()
     plt.show()
 
-def plot_CDF():
+def plot_CDF_T():
     temp_A = A.Temperature
     temp_B = B.Temperature
     temp_C = C.Temperature
     temp_D = D.Temperature
     temp_E = E.Temperature  
-
+    bins = int((len(temp_A)) ** (1./3))*2
     fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax1.title.set_text('CDF of Sensor A')
-    a1=ax1.hist(x=temp_A.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    a1=ax1.hist(x=temp_A.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
     ax1.plot(a1[1][1:]-(a1[1][1:]-a1[1][:-1])/2,a1[0], color='k')
+    ax1.set_xlabel('Temperature [C°]')
     ax2 = fig.add_subplot(152)
     ax2.title.set_text('CDF of Sensor B')
-    a2=ax2.hist(x=temp_B.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    a2=ax2.hist(x=temp_B.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
     ax2.plot(a2[1][1:]-(a2[1][1:]-a2[1][:-1])/2,a2[0], color='k')
+    ax2.set_xlabel('Temperature [C°]')
     ax3 = fig.add_subplot(153)
     ax3.title.set_text('CDF of Sensor C')
-    a3=ax3.hist(x=temp_C.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    a3=ax3.hist(x=temp_C.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
     ax3.plot(a3[1][1:]-(a3[1][1:]-a3[1][:-1])/2,a3[0], color='k')
+    ax3.set_xlabel('Temperature [C°]')
     ax4 = fig.add_subplot(154)
     ax4.title.set_text('CDF of Sensor D')
-    a4=ax4.hist(x=temp_D.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    a4=ax4.hist(x=temp_D.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
     ax4.plot(a4[1][1:]-(a4[1][1:]-a4[1][:-1])/2,a4[0], color='k')
+    ax4.set_xlabel('Temperature [C°]')
     ax5 = fig.add_subplot(155)
     ax5.title.set_text('CDF of Sensor E')
-    a5=ax5.hist(x=temp_E.astype(float),bins=50, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    a5=ax5.hist(x=temp_E.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
     ax5.plot(a5[1][1:]-(a5[1][1:]-a5[1][:-1])/2,a5[0], color='k')
+    ax5.set_xlabel('Temperature [C°]')
     plt.tight_layout()
     plt.show()
 
+def plot_CDF_WS():
+    WS_A = A.Wind_Speed
+    WS_B = B.Wind_Speed
+    WS_C = C.Wind_Speed
+    WS_D = D.Wind_Speed
+    WS_E = E.Wind_Speed  
+    bins = int((len(WS_A)) ** (1./3))*2
+    fig = plt.figure(figsize=(17,6))
+    ax1 = fig.add_subplot(151)
+    ax1.title.set_text('CDF of Sensor A')
+    a1=ax1.hist(x=WS_A.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax1.plot(a1[1][1:]-(a1[1][1:]-a1[1][:-1])/2,a1[0], color='k')
+    ax1.set_xlabel('Wind Speed [m/s]')
+    ax2 = fig.add_subplot(152)
+    ax2.title.set_text('CDF of Sensor B')
+    a2=ax2.hist(x=WS_B.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax2.plot(a2[1][1:]-(a2[1][1:]-a2[1][:-1])/2,a2[0], color='k')
+    ax2.set_xlabel('Wind Speed [m/s]')
+    ax3 = fig.add_subplot(153)
+    ax3.title.set_text('CDF of Sensor C')
+    a3=ax3.hist(x=WS_C.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax3.plot(a3[1][1:]-(a3[1][1:]-a3[1][:-1])/2,a3[0], color='k')
+    ax3.set_xlabel('Wind Speed [m/s]')
+    ax4 = fig.add_subplot(154)
+    ax4.title.set_text('CDF of Sensor D')
+    a4=ax4.hist(x=WS_D.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax4.plot(a4[1][1:]-(a4[1][1:]-a4[1][:-1])/2,a4[0], color='k')
+    ax4.set_xlabel('Wind Speed [m/s]')
+    ax5 = fig.add_subplot(155)
+    ax5.title.set_text('CDF of Sensor E')
+    a5=ax5.hist(x=WS_E.astype(float),bins=bins,density=True, cumulative=True, color='royalblue',alpha=0.7, rwidth=0.85)
+    ax5.plot(a5[1][1:]-(a5[1][1:]-a5[1][:-1])/2,a5[0], color='k')
+    ax5.set_xlabel('Wind Speed [m/s]')
+    plt.tight_layout()
+    plt.show()
 
-
-plot_PMF()
-plot_PDF()
-plot_CDF()
+#plot_PMF_T()
+#plot_PDF_T()
+#plot_CDF_T()
 
 #######################################
 #LESSON A3
@@ -421,6 +461,46 @@ def plot_correlations():
     plt.show()
 
 
-plot_correlations()
+#plot_correlations()
 
 
+#######################################
+#LESSON A4
+#######################################
+
+def confidence_interval_T():
+    plot_CDF_T()
+    keys = ['A','B','C','D','E']
+    lower_values = []
+    upper_values = []
+    Temperature = pd.concat([A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys).dropna()
+    sample_length = len(Temperature)
+    sample_mean = Temperature.mean()
+    sample_std = Temperature.std()
+    lower, upper = stats.t.interval(0.95, sample_length-1,loc=sample_mean, scale=sample_std)
+    lower_values.append(lower)
+    upper_values.append(upper)
+    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys)
+    print(((confidence_table)))
+
+def confidence_interval_WS():
+    plot_CDF_WS()
+    keys = ['A','B','C','D','E']
+    lower_values = []
+    upper_values = []
+    Temperature = pd.concat([A.Wind_Speed,B.Wind_Speed,C.Wind_Speed,D.Wind_Speed,E.Wind_Speed],axis=1,keys=keys).dropna()
+    sample_length = len(Temperature)
+    sample_mean = Temperature.mean()
+    sample_std = Temperature.std()
+    lower, upper = stats.t.interval(0.95, sample_length-1,loc=sample_mean, scale=sample_std)
+    lower_values.append(lower)
+    upper_values.append(upper)
+    confidence_table = pd.DataFrame({'Lower': lower,'Upper': upper}, index=keys)
+    print(((confidence_table)))
+
+
+
+
+
+confidence_interval_T()
+confidence_interval_WS()
