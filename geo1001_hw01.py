@@ -11,6 +11,9 @@ from scipy import stats
 from read_data import read_data
 import seaborn as sns 
 import math
+import re
+from datetime import datetime
+import dateutil.parser as dparser
 
 
 A,B,C,D,E = read_data()
@@ -20,6 +23,27 @@ A,B,C,D,E = read_data()
 #######################################
 #LESSON A1
 #######################################
+def mean_statistics():
+    keys = ['A','B','C','D','E']
+    mean_A = A.mean()
+    mean_B = B.mean()
+    mean_C = C.mean()
+    mean_D = D.mean()
+    mean_E = E.mean()
+    std_A = A.std()
+    std_B = B.std()
+    std_C = C.std()
+    std_D = D.std()
+    std_E = E.std()
+    var_A = A.var()
+    var_B = B.var()
+    var_C = C.var()
+    var_D = D.var()
+    var_E = E.var()
+    mean_df = pd.concat([mean_A,mean_B,mean_C,mean_D,mean_E],axis=1,keys=keys).to_csv("Mean_Table.csv")
+    std_A = pd.concat([std_A,std_B,std_C,std_D,std_E],axis=1,keys=keys).to_csv("Standard Deviation Table.csv")
+    var_df = pd.concat([var_A,var_B,var_C,var_D,var_E],axis=1,keys=keys).to_csv("Variance Table.csv")
+
 def plot_temps_hist_5():
     temp_A = A.Temperature
     temp_B = B.Temperature
@@ -192,13 +216,6 @@ def boxplot_temperature():
     ax5.set_xlabel('Sensor E', fontsize=14)
     #plt.show()
     plt.savefig(('boxplot_temperature'))
-
-boxplot_windspeed()
-boxplot_winddirection()
-boxplot_temperature()
-frequency_polygon()
-plot_temps_hist_5()
-plot_temps_hist_50()
 
 #######################################
 #LESSON A2
@@ -421,14 +438,6 @@ def plot_KDE_WS():
     #plt.show()
     plt.savefig(('plot_KDE_WS'))
 
-
-
-plot_PMF_T()
-plot_PDF_T()
-plot_CDF_T()
-plot_PDF_WS()
-plot_KDE_WS()
-
 #######################################
 #LESSON A3
 #######################################
@@ -498,8 +507,7 @@ def correlations_CWS():
 
         keys.remove(sensor1)
     return pearson_list, spearman_list, key_list
-
-                
+              
 def plot_correlations():
     temp_pearson, temp_spearman = correlations_T()
     temp_pearson = np.array(temp_pearson)
@@ -537,8 +545,6 @@ def plot_correlations():
     plt.tight_layout()
     #plt.show()
     plt.savefig(('plot_correlations'))
-    
-
 
 #######################################
 #LESSON A4
@@ -626,11 +632,39 @@ def t_test_BA():
     print("Wind Speed t-value: " + str(t_ws))
     print("Wind Speed p-value: " + str(p_ws))
 
+#######################################
+#BONUS QUESTION
+#######################################
 
+def coldest_hottest_day():
+    keys = ['DATES','A','B','C','D','E']
+    Temperature = pd.concat([A.FORMATTED_DATE_TIME,A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
+    #print(Temperature)
+    Temperature['DATES'] = pd.to_datetime(Temperature['DATES'])
+    Temperature['DATES'] = Temperature['DATES'].dt.date
+    Temperature.set_index('DATES').resample('D', on='DATES').mean()
+    print(Temperature)
+
+coldest_hottest_day()
+
+"""
+mean_statistics()
+boxplot_windspeed()
+boxplot_winddirection()
+boxplot_temperature()
+frequency_polygon()
+plot_temps_hist_5()
+plot_temps_hist_50()
+
+plot_PMF_T()
+plot_PDF_T()
+plot_CDF_T()
+plot_PDF_WS()
+plot_KDE_WS()
 
 confidence_interval_T()
 confidence_interval_WS()
 t_test_ED()
 t_test_DC()
 t_test_CB()
-t_test_BA()
+t_test_BA()"""
