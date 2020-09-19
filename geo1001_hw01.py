@@ -34,7 +34,8 @@ def plot_temps_hist_5():
     ax3.hist(x=temp_C, bins=5, color='aqua', label='Sensor C' )
     ax4.hist(x=temp_D, bins=5, color='royalblue', label='Sensor D' )
     ax5.hist(x=temp_E, bins=5, color='hotpink',label='Sensor E' )
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_temps_hist_5'))
 
 def plot_temps_hist_50():
     temp_A = A.Temperature
@@ -50,7 +51,8 @@ def plot_temps_hist_50():
     ax3.hist(x=temp_C, bins=50, color='aqua', label='Sensor C' )
     ax4.hist(x=temp_D, bins=50, color='royalblue', label='Sensor D' )
     ax5.hist(x=temp_E, bins=50, color='hotpink',label='Sensor E' )
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_temps_hist_50'))
 
 def frequency_polygon():
     temp_A = A.Temperature
@@ -80,7 +82,8 @@ def frequency_polygon():
     [freq_E, bins]=np.histogram(temp_E, bins = 10) 
     cdf_temp_E = np.cumsum(freq_E)  
     plt.plot(bins[:-1], cdf_temp_E)
-    plt.show()
+    #plt.show()
+    plt.savefig(('frequency_polygon'))
 
 def boxplot_windspeed():
     WS_A = A.Wind_Speed
@@ -115,7 +118,8 @@ def boxplot_windspeed():
     ax5.set_ylabel('Wind Speed [m/s]', fontsize=14)
     ax5.tick_params(labelsize=14)
     ax5.set_xlabel('Sensor E', fontsize=14)
-    plt.show()
+    #plt.show()
+    plt.savefig(('boxplot_windspeed'))
 
 def boxplot_winddirection():
     WD_A = A.Direction_True
@@ -150,7 +154,8 @@ def boxplot_winddirection():
     ax5.set_ylabel('Wind Direction [°]', fontsize=14)
     ax5.tick_params(labelsize=14)
     ax5.set_xlabel('Sensor E', fontsize=14)
-    plt.show()
+    #plt.show()
+    plt.savefig(('boxplot_winddirection'))
 
 def boxplot_temperature():
     temp_A = A.Temperature
@@ -185,14 +190,15 @@ def boxplot_temperature():
     ax5.set_ylabel('Temperature [°C]', fontsize=14)
     ax5.tick_params(labelsize=14)
     ax5.set_xlabel('Sensor E', fontsize=14)
-    plt.show()
+    #plt.show()
+    plt.savefig(('boxplot_temperature'))
 
-#boxplot_windspeed()
-#boxplot_winddirection()
-#boxplot_temperature()
-#frequency_polygon()
-#plot_temps_hist_5()
-#plot_temps_hist_50()
+boxplot_windspeed()
+boxplot_winddirection()
+boxplot_temperature()
+frequency_polygon()
+plot_temps_hist_5()
+plot_temps_hist_50()
 
 #######################################
 #LESSON A2
@@ -243,7 +249,8 @@ def plot_PMF_T():
     ax5.tick_params(labelsize=8)
     ax5.title.set_text('PMF of Sensor E')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_PMF_T'))
 
 def plot_PDF_T():
     temp_A = A.Temperature
@@ -274,7 +281,8 @@ def plot_PDF_T():
     a5=ax5.hist(x=temp_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
     sns.distplot(temp_E.astype(float), color='royalblue',ax=ax5)
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_PDF_T'))
 
 def plot_CDF_T():
     temp_A = A.Temperature
@@ -310,7 +318,8 @@ def plot_CDF_T():
     ax5.plot(a5[1][1:]-(a5[1][1:]-a5[1][:-1])/2,a5[0], color='k')
     ax5.set_xlabel('Temperature [C°]')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_CDF_T'))
 
 def plot_CDF_WS():
     WS_A = A.Wind_Speed
@@ -346,7 +355,8 @@ def plot_CDF_WS():
     ax5.plot(a5[1][1:]-(a5[1][1:]-a5[1][:-1])/2,a5[0], color='k')
     ax5.set_xlabel('Wind Speed [m/s]')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_CDF_WS'))
 
 def plot_PDF_WS():
     WS_A = A.Wind_Speed
@@ -377,7 +387,8 @@ def plot_PDF_WS():
     a5=ax5.hist(x=WS_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
     sns.distplot(WS_E.astype(float), color='royalblue',ax=ax5)
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_PDF_WS'))
 
 def plot_KDE_WS():
     WS_A = A.Wind_Speed
@@ -407,13 +418,14 @@ def plot_KDE_WS():
     ax5.title.set_text('KDE of Sensor E')
     ax5.set_xlabel('Wind Speed [m/s]')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig(('plot_KDE_WS'))
 
 
 
-#plot_PMF_T()
-#plot_PDF_T()
-#plot_CDF_T()
+plot_PMF_T()
+plot_PDF_T()
+plot_CDF_T()
 plot_PDF_WS()
 plot_KDE_WS()
 
@@ -523,10 +535,9 @@ def plot_correlations():
     plt.legend(loc='center right')
 
     plt.tight_layout()
-    plt.show()
-
-
-#plot_correlations()
+    #plt.show()
+    plt.savefig(('plot_correlations'))
+    
 
 
 #######################################
@@ -617,9 +628,9 @@ def t_test_BA():
 
 
 
-#confidence_interval_T()
-#confidence_interval_WS()
-#t_test_ED()
-#t_test_DC()
-#t_test_CB()
-#t_test_BA()
+confidence_interval_T()
+confidence_interval_WS()
+t_test_ED()
+t_test_DC()
+t_test_CB()
+t_test_BA()
