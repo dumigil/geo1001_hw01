@@ -5,7 +5,7 @@ import math
 
 
 def read_data():
-    fields = ['Direction_True','Wind_Speed','Crosswind_Speed','Headwind_Speed','Temperature','Globe_Temperature','Wind_Chill','Relative_Humidity','Heat_Stress_Index','Dew_Point','Psychro_Wet_Bulb_Temperature','Station_Pressure','Barometric_Pressure','Altitude','Density_Altitude','NA_Wet_Bulb_Temperature','WBGT','TWL','Direction_Mag']
+    fields = ['FORMATTED_DATE_TIME','Direction_True','Wind_Speed','Crosswind_Speed','Headwind_Speed','Temperature','Globe_Temperature','Wind_Chill','Relative_Humidity','Heat_Stress_Index','Dew_Point','Psychro_Wet_Bulb_Temperature','Station_Pressure','Barometric_Pressure','Altitude','Density_Altitude','NA_Wet_Bulb_Temperature','WBGT','TWL','Direction_Mag']
     A_data = pd.read_csv('HEAT - A_final.csv', skipinitialspace=True,skiprows= [0,1,2,4], usecols=fields,index_col=False)
     B_data = pd.read_csv('HEAT - B_final.csv', skipinitialspace=True,skiprows= [0,1,2,4], usecols=fields,index_col=False)
     C_data = pd.read_csv('HEAT - C_final.csv', skipinitialspace=True,skiprows= [0,1,2,4], usecols=fields,index_col=False)
