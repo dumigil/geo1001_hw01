@@ -18,11 +18,11 @@ README_4TU_for_students.md
 mono_crash.*
 
 #LaTeX support files
-.aux
-.fdb_latexmk
-.fls
-.log
-.gz
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
 
 # Build results
 [Dd]ebug/
