@@ -17,6 +17,13 @@ README_4TU_for_students.md
 # Mono auto generated files
 mono_crash.*
 
+#LaTeX support files
+.aux
+.fdb_latexmk
+.fls
+.log
+.gz
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
