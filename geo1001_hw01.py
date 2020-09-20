@@ -639,13 +639,17 @@ def t_test_BA():
 def coldest_hottest_day():
     keys = ['DATES','A','B','C','D','E']
     Temperature = pd.concat([A.FORMATTED_DATE_TIME,A.Temperature,B.Temperature,C.Temperature,D.Temperature,E.Temperature],axis=1,keys=keys)
-    #print(Temperature)
-    Temperature['DATES'] = pd.to_datetime(Temperature['DATES'])
-    Temperature['DATES'] = Temperature['DATES'].dt.date
-    Temperature.set_index('DATES').resample('D', on='DATES').mean()
-    print(Temperature)
+    
+    Temperature['DATES'] = pd.to_datetime(Temperature.DATES,infer_datetime_format=True)
+    Temperature = Temperature.resample('D', on='DATES').mean()
+    Temperature = Temperature.mean(axis=1)
+    coldest_day = Temperature.idxmin()
+    hottest_day = Temperature.idxmax()
+    print('The coldest day in the dataset is: ' + str(coldest_day))
+    print('The hottest day in the dataset is: ' + str(hottest_day))
 
-coldest_hottest_day()
+
+
 
 """
 mean_statistics()
@@ -667,4 +671,7 @@ confidence_interval_WS()
 t_test_ED()
 t_test_DC()
 t_test_CB()
-t_test_BA()"""
+t_test_BA()
+
+coldest_hottest_day()
+"""
