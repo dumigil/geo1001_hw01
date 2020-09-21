@@ -14,6 +14,18 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 README_4TU_for_students.md
+
+sensor_loc.png
+t_test_BA.csv
+t_test_CB.csv
+t_test_DC.csv
+t_test_ED.csv
+t_tests.csv
+t_tests.xlsx
+Mean_Stats_Tables.csv
+Mean_Stats_Tables.xlsx
+Confidence Intervals.csv
+Confidence Intervals.xlsx
 # Mono auto generated files
 mono_crash.*
 
