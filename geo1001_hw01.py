@@ -54,11 +54,17 @@ def plot_temps_hist_5():
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(1, 5)
     fig.suptitle('Temperature histograms with 5 bins')
     ax1.hist(x=temp_A, bins=5, color='gold', label='Sensor A' )
+    ax1.set_xlabel('Temperature [C°]')
     ax2.hist(x=temp_B, bins=5, color='greenyellow', label='Sensor B' )
+    ax2.set_xlabel('Temperature [C°]')
     ax3.hist(x=temp_C, bins=5, color='aqua', label='Sensor C' )
+    ax3.set_xlabel('Temperature [C°]')
     ax4.hist(x=temp_D, bins=5, color='royalblue', label='Sensor D' )
+    ax4.set_xlabel('Temperature [C°]')
     ax5.hist(x=temp_E, bins=5, color='hotpink',label='Sensor E' )
+    ax5.set_xlabel('Temperature [C°]')
     #plt.show()
+    plt.tight_layout()
     plt.savefig(('plot_temps_hist_5'))
 
 def plot_temps_hist_50():
@@ -71,11 +77,17 @@ def plot_temps_hist_50():
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(1, 5)
     fig.suptitle('Temperature histograms with 50 bins')
     ax1.hist(x=temp_A, bins=50, color='gold', label='Sensor A' )
+    ax1.set_xlabel('Temperature [C°]')
     ax2.hist(x=temp_B, bins=50, color='greenyellow', label='Sensor B' )
+    ax2.set_xlabel('Temperature [C°]')
     ax3.hist(x=temp_C, bins=50, color='aqua', label='Sensor C' )
+    ax3.set_xlabel('Temperature [C°]')
     ax4.hist(x=temp_D, bins=50, color='royalblue', label='Sensor D' )
+    ax4.set_xlabel('Temperature [C°]')
     ax5.hist(x=temp_E, bins=50, color='hotpink',label='Sensor E' )
+    ax5.set_xlabel('Temperature [C°]')
     #plt.show()
+    plt.tight_layout()
     plt.savefig(('plot_temps_hist_50'))
 
 def frequency_polygon():
@@ -84,28 +96,31 @@ def frequency_polygon():
     temp_C = C.Temperature
     temp_D = D.Temperature
     temp_E = E.Temperature
-    fig = plt.figure(figsize=(17,6))
+    fig = plt.figure(figsize=(17,8))
     fig.suptitle('Frequency Polygons for 5 sensors')
     #Frequency polygon Sensor A
     [freq_A, bins]=np.histogram(temp_A, bins = 10) 
     cdf_temp_A = np.cumsum(freq_A)  
-    plt.plot(bins[:-1], cdf_temp_A)
+    plt.plot(bins[:-1], cdf_temp_A,label='Sensor A')
     #Frequency polygon Sensor B
     [freq_B, bins]=np.histogram(temp_B, bins = 10) 
     cdf_temp_B = np.cumsum(freq_B)  
-    plt.plot(bins[:-1], cdf_temp_B)
+    plt.plot(bins[:-1], cdf_temp_B,label='Sensor B')
     #Frequency polygon Sensor C
     [freq_C, bins]=np.histogram(temp_C, bins = 10) 
     cdf_temp_C = np.cumsum(freq_C)  
-    plt.plot(bins[:-1], cdf_temp_C)
+    plt.plot(bins[:-1], cdf_temp_C,label='Sensor C')
     #Frequency polygon Sensor D
     [freq_D, bins]=np.histogram(temp_D, bins = 10) 
     cdf_temp_D = np.cumsum(freq_D)  
-    plt.plot(bins[:-1], cdf_temp_D)
+    plt.plot(bins[:-1], cdf_temp_D,label='Sensor D')
     #Frequency polygon Sensor E
     [freq_E, bins]=np.histogram(temp_E, bins = 10) 
     cdf_temp_E = np.cumsum(freq_E)  
-    plt.plot(bins[:-1], cdf_temp_E)
+    plt.plot(bins[:-1], cdf_temp_E,label='Sensor E')
+    plt.legend(loc='lower right')
+    plt.xlabel('Temperature [°C]')
+    plt.tight_layout()
     #plt.show()
     plt.savefig(('frequency_polygon'))
 
@@ -275,31 +290,26 @@ def plot_PDF_T():
     temp_C = C.Temperature
     temp_D = D.Temperature
     temp_E = E.Temperature 
-
+    bins = int((len(temp_A)) ** (1./3))*2  
     fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax1.title.set_text('PDF of Sensor A')
-    a1=ax1.hist(x=temp_A.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(temp_A.astype(float), color='royalblue',ax=ax1)
+    sns.distplot(temp_A.astype(float), bins=bins,color='royalblue',ax=ax1)
     ax2 = fig.add_subplot(152)
     ax2.title.set_text('PDF of Sensor B')
-    a2=ax2.hist(x=temp_B.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(temp_B.astype(float), color='royalblue',ax=ax2)
+    sns.distplot(temp_B.astype(float), bins=bins,color='royalblue',ax=ax2)
     ax3 = fig.add_subplot(153)
     ax3.title.set_text('PDF of Sensor C')
-    a3=ax3.hist(x=temp_C.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(temp_C.astype(float), color='royalblue',ax=ax3)
+    sns.distplot(temp_C.astype(float), bins=bins,color='royalblue',ax=ax3)
     ax4 = fig.add_subplot(154)
     ax4.title.set_text('PDF of Sensor D')
-    a4=ax4.hist(x=temp_D.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(temp_D.astype(float), color='royalblue',ax=ax4)
+    sns.distplot(temp_D.astype(float), bins=bins,color='royalblue',ax=ax4)
     ax5 = fig.add_subplot(155)
     ax5.title.set_text('PDF of Sensor E')
-    a5=ax5.hist(x=temp_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(temp_E.astype(float), color='royalblue',ax=ax5)
+    sns.distplot(temp_E.astype(float), bins=bins,color='royalblue',ax=ax5)
     plt.tight_layout()
-    #plt.show()
-    plt.savefig(('plot_PDF_T'))
+    plt.show()
+    #plt.savefig(('plot_PDF_T'))
 
 def plot_CDF_T():
     temp_A = A.Temperature
@@ -381,31 +391,26 @@ def plot_PDF_WS():
     WS_C = C.Wind_Speed
     WS_D = D.Wind_Speed
     WS_E = E.Wind_Speed 
-
+    bins = int((len(WS_A)) ** (1./3))*2  
     fig = plt.figure(figsize=(17,6))
     ax1 = fig.add_subplot(151)
     ax1.title.set_text('PDF of Sensor A')
-    a1=ax1.hist(x=WS_A.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(WS_A.astype(float), color='royalblue',ax=ax1)
+    sns.distplot(WS_A.astype(float), bins=bins,color='royalblue',ax=ax1)
     ax2 = fig.add_subplot(152)
     ax2.title.set_text('PDF of Sensor B')
-    a2=ax2.hist(x=WS_B.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(WS_B.astype(float), color='royalblue',ax=ax2)
+    sns.distplot(WS_B.astype(float), bins=bins,color='royalblue',ax=ax2)
     ax3 = fig.add_subplot(153)
     ax3.title.set_text('PDF of Sensor C')
-    a3=ax3.hist(x=WS_C.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(WS_C.astype(float), color='royalblue',ax=ax3)
+    sns.distplot(WS_C.astype(float), bins=bins,color='royalblue',ax=ax3)
     ax4 = fig.add_subplot(154)
     ax4.title.set_text('PDF of Sensor D')
-    a4=ax4.hist(x=WS_D.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(WS_D.astype(float), color='royalblue',ax=ax4)
+    sns.distplot(WS_D.astype(float), bins=bins,color='royalblue',ax=ax4)
     ax5 = fig.add_subplot(155)
     ax5.title.set_text('PDF of Sensor E')
-    a5=ax5.hist(x=WS_E.astype(float),bins=50, density=True, color='g',alpha=0.7, rwidth=0.85)
-    sns.distplot(WS_E.astype(float), color='royalblue',ax=ax5)
+    sns.distplot(WS_E.astype(float), bins=bins,color='royalblue',ax=ax5)
     plt.tight_layout()
-    #plt.show()
-    plt.savefig(('plot_PDF_WS'))
+    plt.show()
+    #plt.savefig(('plot_PDF_WS'))
 
 def plot_KDE_WS():
     WS_A = A.Wind_Speed
@@ -585,52 +590,57 @@ def t_test_ED():
     temp_E = E.Temperature
     WS_D = D.Wind_Speed
     WS_E = E.Wind_Speed
-    print("Comparing samples from sensors E and D")
     t_temp, p_temp = stats.ttest_ind(temp_D,temp_E)
-    print("Temperature t-value: " + str(t_temp))
-    print("Temperature p-value: " + str(p_temp))
     t_ws, p_ws = stats.ttest_ind(WS_D,WS_E)
-    print("Wind Speed t-value: " + str(t_ws))
-    print("Wind Speed p-value: " + str(p_ws))
+    lst1 = [t_temp,p_temp]
+    lst2 = [t_ws,p_ws]
+    df = pd.DataFrame(
+        {'Temperature' : lst1,
+        'Wind Speed' : lst2
+        },index=['t-value','p-value']).to_csv('t_test_ED.csv')
+    
 
 def t_test_DC():
     temp_D = D.Temperature
     temp_C = C.Temperature
     WS_D = D.Wind_Speed
     WS_C = C.Wind_Speed
-    print("Comparing samples from sensors D and C")
     t_temp, p_temp = stats.ttest_ind(temp_D,temp_C)
-    print("Temperature t-value: " + str(t_temp))
-    print("Temperature p-value: " + str(p_temp))
     t_ws, p_ws = stats.ttest_ind(WS_D,WS_C)
-    print("Wind Speed t-value: " + str(t_ws))
-    print("Wind Speed p-value: " + str(p_ws))
+    lst1 = [t_temp,p_temp]
+    lst2 = [t_ws,p_ws]
+    df = pd.DataFrame(
+        {'Temperature' : lst1,
+        'Wind Speed' : lst2
+        },index=['t-value','p-value']).to_csv('t_test_DC.csv')
 
 def t_test_CB():
     temp_C = C.Temperature
     temp_B = B.Temperature
     WS_C = C.Wind_Speed
     WS_B = B.Wind_Speed
-    print("Comparing samples from sensors C and B")
     t_temp, p_temp = stats.ttest_ind(temp_C,temp_B)
-    print("Temperature t-value: " + str(t_temp))
-    print("Temperature p-value: " + str(p_temp))
     t_ws, p_ws = stats.ttest_ind(WS_C,WS_B)
-    print("Wind Speed t-value: " + str(t_ws))
-    print("Wind Speed p-value: " + str(p_ws))
+    lst1 = [t_temp,p_temp]
+    lst2 = [t_ws,p_ws]
+    df = pd.DataFrame(
+        {'Temperature' : lst1,
+        'Wind Speed' : lst2
+        },index=['t-value','p-value']).to_csv('t_test_CB.csv')
 
 def t_test_BA():
     temp_B = B.Temperature
     temp_A = A.Temperature
     WS_B = B.Wind_Speed
     WS_A = A.Wind_Speed
-    print("Comparing samples from sensors B and A")
     t_temp, p_temp = stats.ttest_ind(temp_B,temp_A)
-    print("Temperature t-value: " + str(t_temp))
-    print("Temperature p-value: " + str(p_temp))
     t_ws, p_ws = stats.ttest_ind(WS_B,WS_A)
-    print("Wind Speed t-value: " + str(t_ws))
-    print("Wind Speed p-value: " + str(p_ws))
+    lst1 = [t_temp,p_temp]
+    lst2 = [t_ws,p_ws]
+    df = pd.DataFrame(
+        {'Temperature' : lst1,
+        'Wind Speed' : lst2
+        },index=['t-value','p-value']).to_csv('t_test_BA.csv')
 
 #######################################
 #BONUS QUESTION
@@ -650,7 +660,7 @@ def coldest_hottest_day():
 
 
 
-
+coldest_hottest_day()
 """
 mean_statistics()
 boxplot_windspeed()
