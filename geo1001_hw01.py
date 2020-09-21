@@ -658,10 +658,6 @@ def coldest_hottest_day():
     print('The coldest day in the dataset is: ' + str(coldest_day))
     print('The hottest day in the dataset is: ' + str(hottest_day))
 
-
-
-coldest_hottest_day()
-"""
 mean_statistics()
 boxplot_windspeed()
 boxplot_winddirection()
@@ -684,4 +680,3 @@ t_test_CB()
 t_test_BA()
 
 coldest_hottest_day()
-"""
